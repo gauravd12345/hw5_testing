@@ -18,7 +18,8 @@ def apply_discount(price, percent):
     """
     if percent < 0:
         raise ValueError("percent must be >= 0")
-    return price - price * percent  # BUG: should be (percent / 100)
+    
+    return price - price * (percent / 100)
 
 def add_tax(price, rate=0.07):
     if rate < 0:
