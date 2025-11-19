@@ -1,13 +1,6 @@
-```markdown
 # COVERAGE REPORT
 
-## Summary
-Command used:
-```bash
-pytest --cov=src --cov-report=term-missing
-```
-
-### Results:
+# Results:
 
 | File            | Statements   | Miss        | Coverage      | Missing Lines |
 | --------------- | ------------ | ----------- | ------------- | ------------- |
@@ -41,8 +34,4 @@ pytest --cov=src --cov-report=term-missing
 
 * Current test coverage is excellent (96%).
 * All key components (`parse_price`, `format_currency`, `apply_discount`, `add_tax`, `bulk_total`, and I/O integration) are fully tested.
-* Only defensive error-handling branches remain untested, which is acceptable for this assignment.
-
-```
-
-```
+* Only defensive error-handling branches remain untested.
