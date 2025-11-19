@@ -14,11 +14,22 @@ Fixture - A fixture is a setup helper that provides data or resources a test nee
 
 ## Summary of Fixes and Changes
 
-Throughout the testing process, several bugs and improvements were identified and fixed to achieve high coverage and reliable functionality.  
-- **`apply_discount()`**: Fixed a logic error where percentages weren’t divided by 100, causing large incorrect discounts (e.g., `100 - 100*10 = -900`). It now correctly calculates `price - price*(percent/100)`.  
-- **`parse_price()`**: Updated to properly validate and parse formatted prices like `"$1,234.50"` while rejecting malformed ones such as `"$12,34,56"`. This ensures correct handling of commas and currency symbols.  
-- **`load_order()`**: Adjusted to split only on the first comma in each line, allowing prices containing commas to be parsed correctly.  
-- **Tests**: Updated and expanded to reflect these fixes. Unit tests now cover normal and invalid inputs for all pricing functions, integration tests confirm end-to-end behavior with real files via `tmp_path`, and a regression test verifies that the original discount bug cannot reappear.  
-- **Coverage**: Achieved ~96% overall test coverage, with only minor untested error-handling branches (e.g., malformed CSV detection).  
+During testing, several bugs were found and fixed to make the program work correctly and increase coverage.  
+- **`apply_discount()`**: Fixed a bug where the percentage was not divided by 100. It now correctly calculates discounts like 10% off 100 = 90.  
+- **`parse_price()`**: Updated to accept valid prices like `"$1,234.50"` and reject bad ones like `"$12,34,56"`.  
+- **`load_order()`**: Changed to split only on the first comma so prices with commas work correctly.  
+- **Tests**: Added and updated unit, integration, and regression tests. All main functions are now tested.  
+- **Coverage**: Reached about 96% total coverage, with only a few untested error cases (e.g., malformed file lines).  
 
-Together, these fixes ensure correctness, maintainability, and confidence in future code changes.
+
+## Pytest Features Used
+
+- **`@pytest.mark.parametrize`** – used to test many inputs in one test (e.g., different price formats).  
+- **Fixtures** – used to share setup across tests.  
+  - `sample_prices`: simple fixture for price lists.  
+  - `tmp_path`: built-in fixture for making temp files in integration tests.  
+- **`pytest.approx`** – used to compare floating-point numbers like totals.  
+- **Regression test** – added a test to make sure the old `apply_discount()` bug never comes back.  
+
+These pytest features helped make the tests cleaner, reusable, and more reliable.
+
