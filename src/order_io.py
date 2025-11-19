@@ -1,16 +1,12 @@
 from src.pricing import parse_price, format_currency, bulk_total
 
 def load_order(path):
-    """
-    Reads CSV-like lines: 'name,price'
-    Returns list of (name, price_float).
-    """
     items = []
     with open(path, "r", encoding="utf-8") as f:
         for ln in f:
             if not ln.strip():
                 continue
-            parts = ln.split(",")
+            parts = ln.split(",", 1)           # <<< only split once
             if len(parts) != 2:
                 raise ValueError("Malformed line: " + ln.strip())
             name, price = parts[0].strip(), parts[1].strip()

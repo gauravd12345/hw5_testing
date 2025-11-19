@@ -1,10 +1,25 @@
+import re
+
+_PRICE_RE = re.compile(
+    r"""^\s*              # optional spaces
+        \$?\s*            # optional $
+        (?:               # integer part:
+           \d{1,3}(?:,\d{3})*   # 1,234,567 style with proper comma groups
+           | \d+                # or plain digits (no commas)
+        )
+        (?:\.\d+)?        # optional decimals
+        \s*$              # optional spaces
+    """,
+    re.VERBOSE,
+)
+
 def parse_price(text):
-    """
-    Parse a price like "$1,234.50" or "12.5" into a float.
-    """
-    s = str(text).strip()
+    s = str(text)
+    if not _PRICE_RE.match(s):
+        raise ValueError(f"Invalid price: {text!r}")
+    s = s.strip()
     if s.startswith("$"):
-        s = s[1:]
+        s = s[1:].lstrip()
     s = s.replace(",", "")
     return float(s)
 

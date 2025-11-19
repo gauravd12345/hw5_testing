@@ -33,9 +33,7 @@ def test_apply_discount_zero_percent():
     assert apply_discount(100, 0) == 100
 
 def test_apply_discount_large_percent():
-    # Expected wrong due to bug (no /100), but we test as if correct
-    # Real expected value should be 50.0 if fixed
-    assert apply_discount(100, 50) != 50.0  # reveals bug
+    assert apply_discount(100, 50) == 50.0
 
 def test_apply_discount_negative_raises():
     with pytest.raises(ValueError):
@@ -67,4 +65,4 @@ def test_bulk_total_basic(sample_prices):
 def test_bulk_total_with_discount_and_tax(sample_prices):
     total = bulk_total(sample_prices, discount_percent=10, tax_rate=0.1)
     # Expected (60 * 0.9) * 1.1 = 59.4 if bug fixed
-    assert total != pytest.approx(59.4, rel=1e-3)  # reveals bug in apply_discount
+    assert total == pytest.approx(59.4, rel=1e-3)  # reveals bug in apply_discount
